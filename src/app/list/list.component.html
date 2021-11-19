@@ -1,0 +1,13 @@
+<div>
+  <div>
+    <app-button (onClick)='addRow()'></app-button>
+  </div>
+  <div style="border: 1px solid grey; border-radius: 8px; overflow: hidden;">
+    <div *ngFor='let item of items; trackBy:id'>
+      <div  @addStateTrigger class="l-row">
+        <div>{{item.id}}</div>
+        <div>name</div>
+      </div>
+    </div>
+  </div>
+</div>

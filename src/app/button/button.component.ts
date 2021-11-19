@@ -1,5 +1,5 @@
 import { animate, animation, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-button',
@@ -14,7 +14,7 @@ import { Component, OnInit } from '@angular/core';
             transform: 'translate(25%,0)',
           }),
           animate(
-            '0.3s cubic-bezier(0.59, 0.32, 0.38, 1.13)',
+            '0.5s cubic-bezier(0.59, 0.32, 0.38, 1.13)',
             style({
               transform: 'translate(0)',
             })
@@ -27,6 +27,8 @@ import { Component, OnInit } from '@angular/core';
 export class ButtonComponent implements OnInit {
   addState: 'DEFAULT' | 'ADDED' = 'DEFAULT';
   isClick: boolean = false;
+  @Output()
+  onClick = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
@@ -34,7 +36,7 @@ export class ButtonComponent implements OnInit {
 
   add() {
     this.addState = 'ADDED';
-    
+    this.onClick.emit();
     setTimeout(() => {
       this.addState = 'DEFAULT';
     }, 1000);
