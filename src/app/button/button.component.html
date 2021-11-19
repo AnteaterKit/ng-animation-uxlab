@@ -1,0 +1,18 @@
+<button 
+  class="button-base"
+  [class.bg-blue]="addState === 'DEFAULT'"
+  [class.bg-green]="addState === 'ADDED'"
+  (click)='add()'
+>
+  <div  
+    *ngIf='addState === "DEFAULT"'
+  >
+    Добавить
+  </div>
+  <div  
+    *ngIf='addState === "ADDED"'
+    @addStateTrigger
+    >
+    Добавлен
+  </div>
+</button>
