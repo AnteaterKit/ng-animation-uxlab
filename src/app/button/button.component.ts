@@ -14,7 +14,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
             transform: 'translate(25%,0)',
           }),
           animate(
-            '0.5s cubic-bezier(0.59, 0.32, 0.38, 1.13)',
+            '0.3s cubic-bezier(0.59, 0.32, 0.38, 1.13)',
             style({
               transform: 'translate(0)',
             })

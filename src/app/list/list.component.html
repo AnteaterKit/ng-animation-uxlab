@@ -1,9 +1,11 @@
-<div>
+<div style="position: relative;">
   <div>
     <app-button (onClick)='addRow()'></app-button>
   </div>
   <div style="border: 1px solid grey; border-radius: 8px; overflow: hidden;">
-    <div  @addStateTrigger [@.disabled]="isIniting"  *ngFor='let item of items; trackBy:id'>
+    <div  @addStateTrigger [@.disabled]="isIniting"  *ngFor='let item of items; index as i; trackBy:id'
+      (click)='rowClick($event, i)'
+    >
       <div class="l-row">
         <app-button textAction='' text='Удалить' (onClick)='remove(item)'></app-button>
         <div>{{item.id}}</div>
@@ -12,3 +14,16 @@
     </div>
   </div>
 </div>
+
+
+<div *ngIf='edit' [style.top]='editTop' [style.width]='editWidth' class="editor">
+  <div style="width: 85px;">
+  </div>
+  <div>
+    <input />
+  </div>
+  <div>
+    <input />
+  </div>
+</div>
+

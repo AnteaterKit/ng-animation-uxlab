@@ -46,6 +46,9 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 export class ListComponent implements OnInit, AfterViewInit {
   isIniting = true;
   items = [{id: 1}, {id: 2}, {id: 3}, {id: 4}];
+  editTop = '0px';
+  editWidth = '0px';
+  edit = false;
   constructor() {
     this.items = this.items.reverse();
   }
@@ -57,15 +60,26 @@ export class ListComponent implements OnInit, AfterViewInit {
   }
 
   addRow() {
+    this.edit = false;
     this.items.unshift({id: this.items.length + 1});
   }
 
   remove(item: any) {
-  console.log(item);
-   const i = this.items.findIndex(x => x.id === item.id);
-   if (i !== -1) {
-     this.items.splice(i, 1);
-   }
+    this.edit = false;
+    console.log(item);
+    const i = this.items.findIndex(x => x.id === item.id);
+    if (i !== -1) {
+      this.items.splice(i, 1);
+    }
+  }
+
+  rowClick($event: any, i: any) {
+    // todo animation увеличить высоту;
+    const rect = $event.target.getBoundingClientRect();
+    this.editTop = rect.top.toString() + 'px';
+    this.editWidth = (rect.width).toString() + 'px';
+    console.log($event.target.getBoundingClientRect());
+    this.edit = true;
   }
 
   id(index: number, item: any) {
