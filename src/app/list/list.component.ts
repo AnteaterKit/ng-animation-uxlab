@@ -1,4 +1,4 @@
-import { animate, animation, style, transition, trigger } from '@angular/animations';
+import { animate, animation, state, style, transition, trigger } from '@angular/animations';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 @Component({
@@ -41,6 +41,12 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
         ])
       ),
     ]),
+    trigger('fadeEdit', [
+      state('false', style({ height: '50px' })),
+      state('true', style({  height: '80px' })),
+      transition('false => true', animate('100ms ease-in')),
+      transition('true => false', animate('100ms ease-out'))
+    ]),
   ]
 })
 export class ListComponent implements OnInit, AfterViewInit {
@@ -49,6 +55,7 @@ export class ListComponent implements OnInit, AfterViewInit {
   editTop = '0px';
   editWidth = '0px';
   edit = false;
+  editIndex = -1;
   constructor() {
     this.items = this.items.reverse();
   }
@@ -61,11 +68,13 @@ export class ListComponent implements OnInit, AfterViewInit {
 
   addRow() {
     this.edit = false;
+    this.editIndex = -1;
     this.items.unshift({id: this.items.length + 1});
   }
 
   remove(item: any) {
     this.edit = false;
+    this.editIndex = -1;
     console.log(item);
     const i = this.items.findIndex(x => x.id === item.id);
     if (i !== -1) {
@@ -75,11 +84,26 @@ export class ListComponent implements OnInit, AfterViewInit {
 
   rowClick($event: any, i: any) {
     // todo animation увеличить высоту;
-    const rect = $event.target.getBoundingClientRect();
-    this.editTop = rect.top.toString() + 'px';
-    this.editWidth = (rect.width).toString() + 'px';
-    console.log($event.target.getBoundingClientRect());
+    console.log(i);
     this.edit = true;
+    this.editIndex = i;
+    setTimeout(() => {
+      const rect = $event.target.getBoundingClientRect();
+      this.editTop = (rect.top.toString() + 30) + 'px';
+      this.editWidth = (rect.width).toString() + 'px';
+      console.log($event.target.getBoundingClientRect());
+    }, 100);
+    
+    
+  }
+
+  accept() {
+    this.edit = false;
+    this.editIndex = -1;
+  }
+
+  isEdit(i: number) {
+    return  i === this.editIndex;
   }
 
   id(index: number, item: any) {

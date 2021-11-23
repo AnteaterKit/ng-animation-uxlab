@@ -3,10 +3,9 @@
     <app-button (onClick)='addRow()'></app-button>
   </div>
   <div style="border: 1px solid grey; border-radius: 8px; overflow: hidden;">
-    <div  @addStateTrigger [@.disabled]="isIniting"  *ngFor='let item of items; index as i; trackBy:id'
-      (click)='rowClick($event, i)'
-    >
-      <div class="l-row">
+    <div @addStateTrigger [@.disabled]="isIniting" *ngFor='let item of items; index as i; trackBy:id'
+      (click)='rowClick($event, i)'>
+      <div [@fadeEdit]="i === editIndex && edit" class="l-row">
         <app-button textAction='' text='Удалить' (onClick)='remove(item)'></app-button>
         <div>{{item.id}}</div>
         <div>name</div>
@@ -15,15 +14,16 @@
   </div>
 </div>
 
-
-<div *ngIf='edit' [style.top]='editTop' [style.width]='editWidth' class="editor">
-  <div style="width: 85px;">
+<ng-container  *ngIf='edit'>
+  <div [@fadeEdit]='edit' [style.top]='editTop' [style.width]='editWidth' class="editor">
+    <div >
+      <app-button textAction='' text='Применить' (onClick)='accept()'></app-button>
+    </div>
+    <div>
+      <input />
+    </div>
+    <div>
+      <input />
+    </div>
   </div>
-  <div>
-    <input />
-  </div>
-  <div>
-    <input />
-  </div>
-</div>
-
+</ng-container>
