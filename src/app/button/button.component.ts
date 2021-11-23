@@ -1,5 +1,5 @@
 import { animate, animation, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-button',
@@ -27,6 +27,10 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class ButtonComponent implements OnInit {
   addState: 'DEFAULT' | 'ADDED' = 'DEFAULT';
   isClick: boolean = false;
+  @Input()
+  text = 'Добавить'
+  @Input()
+  textAction = 'Добавлен'
   @Output()
   onClick = new EventEmitter();
   constructor() { }

@@ -1,18 +1,18 @@
 <button 
   class="button-base"
   [class.bg-blue]="addState === 'DEFAULT'"
-  [class.bg-green]="addState === 'ADDED'"
+  [class.bg-green]="addState === 'ADDED' && textAction"
   (click)='add()'
 >
   <div  
-    *ngIf='addState === "DEFAULT"'
+    *ngIf='addState === "DEFAULT" || !textAction'
   >
-    Добавить
+    {{text}}
   </div>
   <div  
-    *ngIf='addState === "ADDED"'
+    *ngIf='addState === "ADDED" && textAction'
     @addStateTrigger
     >
-    Добавлен
+    {{textAction}}
   </div>
 </button>
