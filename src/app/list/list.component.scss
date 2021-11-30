@@ -2,10 +2,9 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    border-bottom: 1px solid #f0f0f0;
     color: grey;
     font-size: 16px;
-    height: 50px;
+    height: 82px;
 }
 
 .editor {
@@ -18,4 +17,33 @@
     width: 100%;
     border-radius: 8px; 
     background-color: whitesmoke;
+}
+
+.avatar {
+    border: 2px solid #3f51b5;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.edit {
+    font-size: 16px;
+    color: #3f51b5;
+}
+
+.edit:hover { 
+    cursor: pointer;
+}
+
+.detail {
+    margin-top: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.detail-card {
+    width: 300px;
+    height: 200px;
+    background-color: #ededed;
+    border-radius: 8px;
 }

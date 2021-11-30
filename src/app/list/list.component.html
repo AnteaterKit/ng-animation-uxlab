@@ -1,15 +1,35 @@
-<div style="position: relative;">
+<div style="position: relative; ">
   <div>
     <app-button (onClick)='addRow()'></app-button>
   </div>
-  <div style="border: 1px solid grey; border-radius: 8px; overflow: hidden;">
+  <div style=" border-radius: 8px; overflow: hidden;">
     <div [@fadeExplainMotion]='animation' [@.disabled]="isIniting" *ngFor='let item of items; index as i; trackBy:id'
-      (click)='rowClick($event, i)'>
+      >
       <div [@fadeEdit]="i === editIndex && edit" class="l-row">
-        <app-button textAction='' text='Удалить' (onClick)='remove(item)'></app-button>
         <div>{{item.id}}</div>
-        <div>name</div>
+        <div class="avatar">
+        </div>
+        <div>
+          <div>Основной счет</div>
+          <div style="font-size: 20px;
+          color: #555555;">АО Европлан</div>
+        </div>
+        <div>
+          <div style="font-size: 20px;
+          color: #3aa981;">+ 123 000 ₽</div>
+          <div >Платеж поставщику</div>
+        </div>
+        <a class="edit" (click)='rowClick($event, i)'>Редактировать</a>
+        <app-button textAction='' text='Удалить' (onClick)='remove(item)'></app-button>
+        <app-button textAction='' text='Подробно' (onClick)='detail($event)'></app-button>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail">
+  <div *ngFor='let item of details; index as i; trackBy:id'>
+    <div class="detail-card">
     </div>
   </div>
 </div>

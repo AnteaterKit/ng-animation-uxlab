@@ -7,11 +7,15 @@ import { fadeExplainEditMotion, fadeExplainMotion } from '../animation/fade-expl
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
-  animations: [fadeExplainMotion, fadeExplainEditMotion]
+  animations: [fadeExplainMotion, fadeExplainEditMotion],
+  providers: [
+    { provide: ANIMATIONS_DURATION, useValue:  1200, multi: true }
+  ],
 })
 export class ListComponent implements OnInit, AfterViewInit {
   isIniting = true;
   items = [{id: 1}, {id: 2}, {id: 3}, {id: 4}];
+  details = [{id: 1}, {id: 2}, {id: 3}, {id: 4}];
   editTop = '0px';
   editWidth = '0px';
   edit = false;
@@ -51,17 +55,22 @@ export class ListComponent implements OnInit, AfterViewInit {
   }
 
   rowClick($event: any, i: any) {
-    console.log(i);
+    console.log($event.target);
     this.edit = true;
     this.editIndex = i;
     setTimeout(() => {
-      const rect = $event.target.getBoundingClientRect();
+      const rect = $event.target.parentNode.getBoundingClientRect();
       this.editTop = (rect.top.toString() + 30) + 'px';
       this.editWidth = (rect.width).toString() + 'px';
       console.log($event.target.getBoundingClientRect());
     }, 100);
     
     
+  }
+
+  detail($event: any) {
+    $event.preventdefault();
+    $event.stopPropagation();
   }
 
   accept() {
