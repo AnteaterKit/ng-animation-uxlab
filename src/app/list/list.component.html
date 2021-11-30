@@ -3,7 +3,7 @@
     <app-button (onClick)='addRow()'></app-button>
   </div>
   <div style="border: 1px solid grey; border-radius: 8px; overflow: hidden;">
-    <div @addStateTrigger [@.disabled]="isIniting" *ngFor='let item of items; index as i; trackBy:id'
+    <div [@fadeExplainMotion]='animation' [@.disabled]="isIniting" *ngFor='let item of items; index as i; trackBy:id'
       (click)='rowClick($event, i)'>
       <div [@fadeEdit]="i === editIndex && edit" class="l-row">
         <app-button textAction='' text='Удалить' (onClick)='remove(item)'></app-button>

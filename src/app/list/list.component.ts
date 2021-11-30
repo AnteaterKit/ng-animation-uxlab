@@ -1,53 +1,13 @@
 import { animate, animation, state, style, transition, trigger } from '@angular/animations';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
+import { ANIMATIONS_DURATION } from '../animation/animation-tokens';
+import { fadeExplainEditMotion, fadeExplainMotion } from '../animation/fade-explain';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
-  animations: [
-    trigger('addStateTrigger', [
-      transition(
-        ':enter',
-        animation([
-          style({
-            transform: 'translate(25%,0)',
-            backgroundColor: '#fafafa',
-            height: '10px'
-          }),
-          animate(
-            '0.3s cubic-bezier(0.59, 0.32, 0.38, 1.13)',
-            style({
-              transform: 'translate(0)',
-              height: '50px'
-            })
-          ),
-        ])
-      ),
-      transition(
-        '* => void',
-        animation([
-          style({
-            backgroundColor: '#fafafa',
-            height: '50px'
-          }),
-          animate(
-            '0.3s cubic-bezier(0.59, 0.32, 0.38, 1.13)',
-            style({
-              transform: 'translate(-25%,0)',
-              height: '50px'
-            })
-          ),
-        ])
-      ),
-    ]),
-    trigger('fadeEdit', [
-      state('false', style({ height: '50px' })),
-      state('true', style({  height: '80px' })),
-      transition('false => true', animate('100ms ease-in')),
-      transition('true => false', animate('100ms ease-out'))
-    ]),
-  ]
+  animations: [fadeExplainMotion, fadeExplainEditMotion]
 })
 export class ListComponent implements OnInit, AfterViewInit {
   isIniting = true;
@@ -56,7 +16,15 @@ export class ListComponent implements OnInit, AfterViewInit {
   editWidth = '0px';
   edit = false;
   editIndex = -1;
-  constructor() {
+
+  animation = {
+    value: '', params: { 
+      duration: this.duration
+    }
+  };
+
+  constructor(@Inject(ANIMATIONS_DURATION) private readonly duration: number,) {
+    console.log('duration ', duration);
     this.items = this.items.reverse();
   }
   ngAfterViewInit(): void {
@@ -83,7 +51,6 @@ export class ListComponent implements OnInit, AfterViewInit {
   }
 
   rowClick($event: any, i: any) {
-    // todo animation увеличить высоту;
     console.log(i);
     this.edit = true;
     this.editIndex = i;
