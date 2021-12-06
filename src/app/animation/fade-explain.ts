@@ -1,4 +1,4 @@
-import { animate, animation, AnimationTriggerMetadata, state, style, transition, trigger } from '@angular/animations';
+import { animate, animation, AnimationTriggerMetadata, query, stagger, state, style, transition, trigger } from '@angular/animations';
 
 const TRANSITION = '{{duration}}ms cubic-bezier(0.59, 0.32, 0.38, 1.13)';
 const DURATION = {params: {duration: 300}};
@@ -30,7 +30,7 @@ export const fadeExplainMotion: AnimationTriggerMetadata = trigger('fadeExplainM
         height: '82px'
       }),
       animate(
-        '0.3s cubic-bezier(0.59, 0.32, 0.38, 1.13)',
+        TRANSITION,
         style({
           transform: 'translate(-25%,0)',
           height: '82px'
@@ -47,4 +47,18 @@ export const fadeExplainEditMotion: AnimationTriggerMetadata =
     state('true', style({  height: '80px' })),
     transition('false => true', animate('100ms ease-in')),
     transition('true => false', animate('100ms ease-out'))
+]);
+
+export const listEnterMotion: AnimationTriggerMetadata =
+  trigger('listEnterMotion', [
+    transition('* => *', [
+      query(':enter', [
+        style({ opacity: 1, height: 0, visibility: "hidden" }),
+        stagger(100, [
+          animate("0ms {{delay}}ms", style({})),
+          style({ height: "*", visibility: "visible" }),
+          animate("500ms", style({ opacity: 1 }))
+        ])
+    ])
+  ])
 ]);

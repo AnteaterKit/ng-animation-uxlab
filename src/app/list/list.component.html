@@ -2,34 +2,40 @@
   <div>
     <app-button (onClick)='addRow()'></app-button>
   </div>
-  <div style=" border-radius: 8px; overflow: hidden;">
-    <div [@fadeExplainMotion]='animation' [@.disabled]="isIniting" *ngFor='let item of items; index as i; trackBy:id'
-      >
-      <div [@fadeEdit]="i === editIndex && edit" class="l-row">
+  <div class="table">
+    <div 
+      *ngFor='let item of items; index as i; trackBy:id'
+      [@fadeExplainMotion]='animation'
+      [@.disabled]="isIniting" 
+    >
+      <div class="l-row">
         <div>{{item.id}}</div>
         <div class="avatar">
         </div>
         <div>
           <div>Основной счет</div>
-          <div style="font-size: 20px;
-          color: #555555;">АО Европлан</div>
+          <div class="lessor">АО Европлан</div>
         </div>
         <div>
-          <div style="font-size: 20px;
-          color: #3aa981;">+ 123 000 ₽</div>
+          <div class="price">123 000 ₽</div>
           <div >Платеж поставщику</div>
         </div>
         <a class="edit" (click)='rowClick($event, i)'>Редактировать</a>
-        <app-button textAction='' text='Удалить' (onClick)='remove(item)'></app-button>
+        <app-button textAction='' text='Удалить' (onClick)='remove(item)'>
+          
+        </app-button>
         <app-button textAction='' text='Подробно' (onClick)='detail($event)'></app-button>
       </div>
     </div>
   </div>
 </div>
 
-<div class="detail">
-  <div *ngFor='let item of details; index as i; trackBy:id'>
+<div *ngIf='showDetail' [@listEnterMotion]='animatiomList' class="detail">
+  <div  *ngFor='let item of details; index as i; trackBy:id'>
     <div class="detail-card">
+      <div>
+        
+      </div>
     </div>
   </div>
 </div>

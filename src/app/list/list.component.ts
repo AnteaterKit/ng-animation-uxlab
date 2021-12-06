@@ -1,31 +1,31 @@
 import { animate, animation, state, style, transition, trigger } from '@angular/animations';
 import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { ANIMATIONS_DURATION } from '../animation/animation-tokens';
-import { fadeExplainEditMotion, fadeExplainMotion } from '../animation/fade-explain';
+import { fadeExplainEditMotion, fadeExplainMotion, listEnterMotion } from '../animation/fade-explain';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
-  animations: [fadeExplainMotion, fadeExplainEditMotion],
-  providers: [
-    { provide: ANIMATIONS_DURATION, useValue:  1200, multi: true }
-  ],
+  animations: [fadeExplainMotion, fadeExplainEditMotion, listEnterMotion],
 })
 export class ListComponent implements OnInit, AfterViewInit {
   isIniting = true;
   items = [{id: 1}, {id: 2}, {id: 3}, {id: 4}];
-  details = [{id: 1}, {id: 2}, {id: 3}, {id: 4}];
+  details = [{id: 1}, {id: 2}, {id: 3}, {id: 4},  {id: 4},  {id: 4},  {id: 4},  {id: 4}];
   editTop = '0px';
   editWidth = '0px';
   edit = false;
   editIndex = -1;
+  showDetail = false;
 
   animation = {
     value: '', params: { 
       duration: this.duration
     }
   };
+
+  animatiomList = {value: this.details.length, params:{delay: 1 * 100 + 500 }};
 
   constructor(@Inject(ANIMATIONS_DURATION) private readonly duration: number,) {
     console.log('duration ', duration);
@@ -39,6 +39,7 @@ export class ListComponent implements OnInit, AfterViewInit {
   }
 
   addRow() {
+    this.showDetail = false;
     this.edit = false;
     this.editIndex = -1;
     this.items.unshift({id: this.items.length + 1});
@@ -46,6 +47,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 
   remove(item: any) {
     this.edit = false;
+    this.showDetail = false;
     this.editIndex = -1;
     console.log(item);
     const i = this.items.findIndex(x => x.id === item.id);
@@ -69,8 +71,7 @@ export class ListComponent implements OnInit, AfterViewInit {
   }
 
   detail($event: any) {
-    $event.preventdefault();
-    $event.stopPropagation();
+    this.showDetail = !this.showDetail;;
   }
 
   accept() {

@@ -7,9 +7,6 @@ import { fadeExplainMotion } from './animation/fade-explain';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   animations: [fadeExplainMotion],
-  providers: [
-    { provide: ANIMATIONS_DURATION, useValue:  300, multi: true }
-  ],
 })
 export class AppComponent {
   title = 'ng-animation-uxlab';
