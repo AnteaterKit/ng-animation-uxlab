@@ -14,7 +14,7 @@ import { ANIMATIONS_DURATION } from '../animation/animation-tokens';
   declarations: [ListComponent],
   exports: [ListComponent],
   providers: [
-    { provide: ANIMATIONS_DURATION, useValue:  2250 }
+    { provide: ANIMATIONS_DURATION, useValue:  200 }
   ],
 })
 export class ListModule { }

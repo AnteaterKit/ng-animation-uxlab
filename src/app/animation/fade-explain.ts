@@ -10,7 +10,7 @@ export const fadeExplainMotion: AnimationTriggerMetadata = trigger('fadeExplainM
       style({
         transform: 'translate(25%,0)',
         backgroundColor: '#fafafa',
-        height: '30px'
+        height: '50px'
       }),
       animate(
         TRANSITION,
